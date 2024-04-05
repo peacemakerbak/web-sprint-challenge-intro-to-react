@@ -7,12 +7,14 @@ const urlPeople = 'http://localhost:9009/api/people'
 
 function App() {
   // ❗ Create state to hold the data from the API
+  const [characters, setCharacters] = useState([]);
   // ❗ Create effects to fetch the data and put it in state
   return (
     <div>
       <h2>Star Wars Characters</h2>
       <p>See the README of the project for instructions on completing this challenge</p>
       {/* ❗ Map over the data in state, rendering a Character at each iteration */}
+
     </div>
   )
 }
