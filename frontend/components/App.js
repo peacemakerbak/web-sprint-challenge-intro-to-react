@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Character from './Character';
-import '../styles/styles.css';
-
+import '../styles/styles.css'; // Import styles globally
 
 const urlPlanets = 'http://localhost:9009/api/planets';
 const urlPeople = 'http://localhost:9009/api/people';
@@ -13,19 +12,18 @@ function App() {
 
   // ❗ Create effects to fetch the data and put it in state
   useEffect(() => {
-    // Fetching data from both endpoints concurrently using Promise.all
     Promise.all([axios.get(urlPeople), axios.get(urlPlanets)])
       .then(([peopleResponse, planetsResponse]) => {
-        // Creating an object to map planet IDs to planet names for easy lookup
-        const planets = planetsResponse.data.reduce((acc, planet) => {
-          acc[planet.id] = planet.name; // Only storing the planet name for simplicity
+        // Constructing a lookup object for planets with both id and name
+        const planetsLookup = planetsResponse.data.reduce((acc, planet) => {
+          acc[planet.id] = { id: planet.id, name: planet.name }; // Adjusted to include both id and name
           return acc;
         }, {});
 
-        // Combining character data with their respective homeworld names
+        // Combining character data with their respective homeworld information
         const combinedData = peopleResponse.data.map(character => ({
           ...character,
-          homeworld: planets[character.homeworld] // Linking homeworld ID to its name
+          homeworld: planetsLookup[character.homeworld] // Adjusted to use the lookup object
         }));
 
         // Setting the combined data to state
