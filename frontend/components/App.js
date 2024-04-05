@@ -3,6 +3,7 @@ import axios from 'axios';
 import Character from './Character';
 import '../styles/styles.css';
 
+
 const urlPlanets = 'http://localhost:9009/api/planets';
 const urlPeople = 'http://localhost:9009/api/people';
 
