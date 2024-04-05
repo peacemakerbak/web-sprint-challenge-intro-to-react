@@ -13,26 +13,23 @@ function App() {
 
   // ❗ Create effects to fetch the data and put it in state
   useEffect(() => {
-    // Fetching data from both endpoints concurrently using Promise.all
-    Promise.all([axios.get(urlPeople), axios.get(urlPlanets)]) // Fetching data from both endpoints concurrently
-      .then(([peopleResponse, planetsResponse]) => { // Destructuring the responses
-        // Creating an object to map planet IDs to planet names for easy lookup
-        const planets = planetsResponse.data.reduce((acc, planet) => { // Reducing the planets array to an object
-          acc[planet.id] = planet.name; // Only storing the planet name for simplicity
-          return acc;
-        }, {});
-
-        // Combining character data with their respective homeworld names
-        const combinedData = peopleResponse.data.map(character => ({
+    Promise.all([axios.get(urlPeople), axios.get(urlPlanets)]) // Fetching data from the API
+      .then(([peopleResponse, planetsResponse]) => { // Handling the response
+        const planetsMapping = planetsResponse.data.reduce((acc, planet) => { // Mapping over the planets array
+          acc[planet.id] = planet.name; // Creating a new object with the planet id as the key and the planet name as the value
+          return acc; // Returning the new object
+        }, {}); // Initial value of the accumulator is an empty object
+  
+        const charactersWithPlanets = peopleResponse.data.map(character => ({
           ...character,
-          homeworld: planets[character.homeworld] // Linking homeworld ID to its name
+          homeworld: planetsMapping[character.homeworld] // Adding the homeworld property to the character object
         }));
-
-        // Setting the combined data to state
-        setCharacters(combinedData);
+  
+        setCharacters(charactersWithPlanets); // Setting the characters state with the new array
       })
-      .catch(error => console.error('Fetching data error:', error)); 
+      .catch(error => console.error('Fetching data error:', error)); // Handling errors
   }, []);
+  
 
   return ( // Rendering the Character component
     <div>
