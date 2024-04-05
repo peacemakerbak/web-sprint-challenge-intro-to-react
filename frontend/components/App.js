@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Character from './Character';
-import '../styles/styles.css';
+import '../styles/styles.css'; 
 
 
 const urlPlanets = 'http://localhost:9009/api/planets';
@@ -14,10 +14,10 @@ function App() {
   // ❗ Create effects to fetch the data and put it in state
   useEffect(() => {
     // Fetching data from both endpoints concurrently using Promise.all
-    Promise.all([axios.get(urlPeople), axios.get(urlPlanets)])
-      .then(([peopleResponse, planetsResponse]) => {
+    Promise.all([axios.get(urlPeople), axios.get(urlPlanets)]) // Fetching data from both endpoints concurrently
+      .then(([peopleResponse, planetsResponse]) => { // Destructuring the responses
         // Creating an object to map planet IDs to planet names for easy lookup
-        const planets = planetsResponse.data.reduce((acc, planet) => {
+        const planets = planetsResponse.data.reduce((acc, planet) => { // Reducing the planets array to an object
           acc[planet.id] = planet.name; // Only storing the planet name for simplicity
           return acc;
         }, {});
@@ -31,20 +31,20 @@ function App() {
         // Setting the combined data to state
         setCharacters(combinedData);
       })
-      .catch(error => console.error('Fetching data error:', error));
+      .catch(error => console.error('Fetching data error:', error)); 
   }, []);
 
-  return (
+  return ( // Rendering the Character component
     <div>
       <h2>Star Wars Characters</h2>
       <p>See the README of the project for instructions on completing this challenge</p>
       {/* ❗ Map over the data in state, rendering a Character at each iteration */}
-      {characters.length > 0 ? (
-        characters.map(character => (
-          <Character key={character.id} character={character} />
+      {characters.length > 0 ? ( 
+        characters.map(character => ( // Mapping over the characters array
+          <Character key={character.id} character={character} /> // Rendering the Character component
         ))
       ) : (
-        <p>Loading characters...</p>
+        <p>Loading characters...</p> // Displayed while the data is being fetched
       )}
     </div>
   );
