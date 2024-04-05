@@ -11,7 +11,7 @@ function Character({ character }) {
 
   return (
     <div className="character-card">
-      {/* Display the character's name */}
+      {/* Display the character's name. Click to toggle homeworld info */}
       <h3 className="character-name" onClick={toggleHomeworld}>{character.name}</h3>
       {/* Conditionally render homeworld info based on state */}
       {showHomeworld && (
