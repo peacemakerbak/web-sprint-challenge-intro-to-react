@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/styles.css'; // Styling for the character card
 
 function Character({ character }) {
   // ❗ Create a state to hold whether the homeworld is rendering or not
@@ -15,8 +14,8 @@ function Character({ character }) {
       {/* Display the character's name */}
       <h3 className="character-name" onClick={toggleHomeworld}>{character.name}</h3>
       {/* Conditionally render homeworld info based on state */}
-      {showHomeworld && (
-        <p>Planet: <span className="character-planet">{character.homeworld}</span></p>
+      {showHomeworld && ( // If showHomeworld is true, render the homeworld info
+        <p>Planet: <span className="character-planet">{character.homeworld}</span></p> // Display the homeworld info
     )}
     </div>
   );
