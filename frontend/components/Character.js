@@ -10,14 +10,12 @@ function Character({ character }) {
   };
 
   return (
-    <div className="character-card" onClick={toggleHomeworld}>
+    <div className="character-card">
       {/* Display the character's name */}
-      <h3>{character.name}</h3>
+      <h3 className="character-name" onClick={toggleHomeworld}>{character.name}</h3>
       {/* Conditionally render homeworld info based on state */}
       {showHomeworld && (
-        <p>
-          <strong>Planet:</strong> <span className="character-planet">{character.homeworld}</span>
-        </p>
+        <p>Planet: <span className="character-planet">{character.homeworld}</span></p>
       )}
     </div>
   );
