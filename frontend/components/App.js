@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Character from './Character';
-import '../styles/styles.css'; 
 
 
 const urlPlanets = 'http://localhost:9009/api/planets';
